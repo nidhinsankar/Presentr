@@ -134,6 +134,7 @@ export async function CleanseTranscript(data: any) {
     });
 
     const tidiedText = completion.choices[0].message.content;
+    console.log("tidiedText", tidiedText);
 
     return tidiedText;
   } catch (error) {
@@ -185,6 +186,7 @@ export async function ConvertTextToArrayContent(
     if (!completion.choices[0].message.parsed) {
       throw new Error("Failed to convert text to array of content");
     }
+    console.log("convertTexttoArray", completion.choices[0].message.parsed);
 
     return completion.choices[0].message.parsed;
   } catch (error) {
@@ -223,6 +225,7 @@ export async function CreateTitleAndDescription(contentArray: any) {
     if (!completion.choices[0].message.parsed) {
       throw new Error("Failed to create title and description");
     }
+    console.log("title-anddescription", completion.choices[0].message.parsed);
 
     return completion.choices[0].message.parsed;
   } catch (error) {
@@ -259,7 +262,10 @@ export async function ImprovePresentationContent(content: any) {
       ),
     });
 
-    console.log(completion.choices[0].message.parsed);
+    console.log(
+      "improve presentationContent",
+      completion.choices[0].message.parsed
+    );
 
     if (!completion.choices[0].message.parsed) {
       throw new Error("Failed to improve presentation content");
