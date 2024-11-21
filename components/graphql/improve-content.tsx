@@ -1,20 +1,17 @@
 import { CONTENT_ARRAY_TEXT } from "@/lib/constants";
+import { GetImproveContent } from "@/lib/presentation";
+import { GET_IMPROVE_CONTENT } from "@/lib/useGraphQL";
 import { gql, useQuery } from "@apollo/client";
 
-const GET_IMPROVE_CONTENT = gql`
-  query GetImprovePresentationContent($data: String!) {
-    improvePresentationContent(content: $data)
-  }
-`;
-
 export default function ImproveContent() {
-  const { data, loading, error } = useQuery(GET_IMPROVE_CONTENT, {
-    variables: {
-      data: JSON.stringify(JSON.parse(CONTENT_ARRAY_TEXT), null, 2), // Changed from 'input' to 'data'
-    },
-    fetchPolicy: "network-only",
-  });
+  // const { data, loading, error } = useQuery(GET_IMPROVE_CONTENT, {
+  //   variables: {
+  //     data: JSON.stringify(JSON.parse(CONTENT_ARRAY_TEXT), null, 2), // Changed from 'input' to 'data'
+  //   },
+  //   fetchPolicy: "network-only",
+  // });
 
+  const { data, loading, error } = GetImproveContent();
   // Loading state
   if (loading) {
     return (

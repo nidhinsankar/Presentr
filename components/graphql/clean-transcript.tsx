@@ -1,34 +1,23 @@
 "use client";
 import { gql, useQuery } from "@apollo/client";
 import { RESULT_IN_PARSE } from "@/lib/constants";
-
-// Define the TypeScript interface for the query response
-interface TranscriptResponse {
-  cleanTranscript: string; // Scalar type response
-}
-
-// Define the variables interface with correct argument name
-interface TranscriptVariables {
-  data: string; // Changed from 'input' to 'data'
-}
+import { GET_TRANSCRIPT_QUERY } from "@/lib/useGraphQL";
+import { GetCleanedTranscript } from "@/lib/presentation";
 
 // Corrected query with proper argument name
-const GET_TRANSCRIPT_QUERY = gql`
-  query GetTranscript($data: String!) {
-    cleanTranscript(data: $data) # Changed from 'input' to 'data'
-  }
-`;
 
 export default function CleanTranscript() {
-  const { data, loading, error } = useQuery<
-    TranscriptResponse,
-    TranscriptVariables
-  >(GET_TRANSCRIPT_QUERY, {
-    variables: {
-      data: JSON.stringify(RESULT_IN_PARSE), // Changed from 'input' to 'data'
-    },
-    fetchPolicy: "network-only",
-  });
+  // const { data, loading, error } = useQuery<
+  //   TranscriptResponse,
+  //   TranscriptVariables
+  // >(GET_TRANSCRIPT_QUERY, {
+  //   variables: {
+  //     data: JSON.stringify(RESULT_IN_PARSE), // Changed from 'input' to 'data'
+  //   },
+  //   fetchPolicy: "network-only",
+  // });
+
+  const { data: newk, loading, error } = GetCleanedTranscript();
 
   // Loading state
   if (loading) {
@@ -55,19 +44,19 @@ export default function CleanTranscript() {
     );
   }
 
-  console.log("data", data);
+  console.log("data", newk);
 
   // Success state
   return (
     <div className="p-4">
       <h3 className="text-xl font-bold mb-4">Modus GraphQL</h3>
-      {data?.cleanTranscript && (
+      {newk?.cleanTranscript && (
         <div className="bg-white rounded-lg shadow p-4">
           <div className="mb-4">
             <h4 className="font-semibold">Cleaned Transcript:</h4>
           </div>
           <pre className="whitespace-pre-wrap bg-gray-50 p-4 rounded">
-            {typeof data.cleanTranscript === "string" && data.cleanTranscript}
+            {typeof newk.cleanTranscript === "string" && newk.cleanTranscript}
           </pre>
         </div>
       )}

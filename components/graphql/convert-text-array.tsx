@@ -1,20 +1,18 @@
 "use client";
 import { CONTENT_ARRAY_TEXT, CONVERT_TEXT_ARRAY } from "@/lib/constants";
+import { GetConvertTextArray } from "@/lib/presentation";
+import { GET_CONVERT_TO_TEXT_ARRAY } from "@/lib/useGraphQL";
 import { gql, useQuery } from "@apollo/client";
 
-const GET_CONVERT_TO_TEXT_ARRAY = gql`
-  query GetTextToArray($text: String!) {
-    convertTextToArray(text: $text)
-  }
-`;
-
 export default function ConvertTextToArray() {
-  const { data, loading, error } = useQuery(GET_CONVERT_TO_TEXT_ARRAY, {
-    variables: {
-      text: JSON.stringify(CONVERT_TEXT_ARRAY), // Changed from 'input' to 'data'
-    },
-    fetchPolicy: "network-only",
-  });
+  // const { data, loading, error } = useQuery(GET_CONVERT_TO_TEXT_ARRAY, {
+  //   variables: {
+  //     text: JSON.stringify(CONVERT_TEXT_ARRAY), // Changed from 'input' to 'data'
+  //   },
+  //   fetchPolicy: "network-only",
+  // });
+
+  const { data, loading, error } = GetConvertTextArray();
 
   // Loading state
   if (loading) {
@@ -50,7 +48,7 @@ export default function ConvertTextToArray() {
       {data?.convertTextToArray && (
         <div className="bg-white rounded-lg shadow p-4">
           <div className="mb-4">
-            <h4 className="font-semibold">Cleaned Transcript:</h4>
+            <h4 className="font-semibold">Convert text to array Transcript:</h4>
           </div>
           <pre className="whitespace-pre-wrap bg-gray-50 p-4 rounded">
             {data.convertTextToArray}

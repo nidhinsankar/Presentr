@@ -1,20 +1,18 @@
 "use client";
 import { TITLE_AND_DESCRIPTION } from "@/lib/constants";
+import { GetTitleAndDescription } from "@/lib/presentation";
+import { GET_TITLE_AND_DESCRIPTION } from "@/lib/useGraphQL";
 import { gql, useQuery } from "@apollo/client";
 
-const GET_TITLE_AND_DESCRIPTION = gql`
-  query GetTitleAndDescription($data: String!) {
-    generateTitleAndDescription(contentArray: $data)
-  }
-`;
-
 export default function TitleAndDescription() {
-  const { data, loading, error } = useQuery(GET_TITLE_AND_DESCRIPTION, {
-    variables: {
-      data: JSON.stringify(JSON.parse(TITLE_AND_DESCRIPTION), null, 2), // Changed from 'input' to 'data'
-    },
-    fetchPolicy: "network-only",
-  });
+  // const { data, loading, error } = useQuery(GET_TITLE_AND_DESCRIPTION, {
+  //   variables: {
+  //     data: JSON.stringify(JSON.parse(TITLE_AND_DESCRIPTION), null, 2), // Changed from 'input' to 'data'
+  //   },
+  //   fetchPolicy: "network-only",
+  // });
+
+  const { data, loading, error } = GetTitleAndDescription();
 
   // Loading state
   if (loading) {

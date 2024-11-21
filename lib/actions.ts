@@ -17,8 +17,9 @@ import fs from "fs-extra";
 import { UploadFileResult } from "uploadthing/types";
 import prisma from "./prisma";
 import { revalidatePath } from "next/cache";
+import { TitleAndDescription } from "@/types";
 
-async function checkAndProcess<T>(
+export async function checkAndProcess<T>(
   promise: Promise<T>,
   errorMessage: string
 ): Promise<T> {
@@ -123,6 +124,66 @@ export async function RunPresentationCreationProcess(formData: FormData) {
       "Failed to improve content"
     );
 
+    const Presentation = await checkAndProcess(
+      CreatePresentationFromArrayOfObjects(improvedContent, user),
+      "Failed to create presentation"
+    );
+
+    if (!(await fs.pathExists(Presentation.filePath))) {
+      throw new Error("Failed to create presentation");
+    }
+
+    const file = await fs.readFile(Presentation.filePath);
+
+    const uploadResponse = (await checkAndProcess(
+      UploadPowerpointToToUploadThing(file, Presentation.fileName),
+      "Failed to upload presentation"
+    )) as UploadFileResult[];
+
+    const url = uploadResponse[0].data?.url;
+    if (!url) {
+      throw new Error("Failed to upload presentation");
+    }
+
+    console.log(uploadResponse);
+
+    const savePresentationAndUpdateDB = await checkAndProcess(
+      DeductCoinsAndSavePresentationURL(
+        url,
+        user.id,
+        Presentation.filePath,
+        TitleAndDescription,
+        slideCount as string,
+        id
+      ),
+      "Failed to save presentation and update DB"
+    );
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+}
+
+export async function RunCreationProcess(
+  improvedContent: object[],
+  TitleAndDescription: TitleAndDescription,
+  id: string
+) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  let slideCount = "5";
+  console.log("improvedContent =>", improvedContent);
+  console.log("title-and-description =>", TitleAndDescription);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  try {
     const Presentation = await checkAndProcess(
       CreatePresentationFromArrayOfObjects(improvedContent, user),
       "Failed to create presentation"

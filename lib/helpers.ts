@@ -283,10 +283,10 @@ export async function CreatePresentationFromArrayOfObjects(
   user: KindeUser
 ) {
   try {
-    console.log(arrayOfObjects.arrayOfObjects[0].content);
+    console.log(arrayOfObjects);
     const pptx = new pptxgen();
 
-    arrayOfObjects.arrayOfObjects.forEach((slide: any) => {
+    arrayOfObjects.forEach((slide: any) => {
       const slideForPresentation = pptx.addSlide();
 
       slideForPresentation.addText(slide.title, {
