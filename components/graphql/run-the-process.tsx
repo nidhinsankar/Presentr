@@ -44,6 +44,30 @@ export default function RunTheProcess({ user }: { user: KindeUser }) {
     title: "",
   });
 
+  useEffect(() => {
+    const processFinalContent = async () => {
+      // Check if both finalImprovedContent and finalDetails are populated
+      if (
+        finalImprovedContent.length > 0 &&
+        Object.keys(finalDetails).length > 0
+      ) {
+        try {
+          const Presentation = await checkAndProcess(
+            RunCreationProcess(finalImprovedContent, finalDetails),
+            "Failed to create presentation"
+          );
+
+          console.log("presentation =>", Presentation);
+        } catch (error) {
+          console.error("Error processing presentation:", error);
+          // Optional: Handle error (e.g., show error message to user)
+        }
+      }
+    };
+
+    processFinalContent();
+  }, [finalImprovedContent, finalDetails, user]);
+
   // Step 1: Get cleaned transcript
   const {
     data: transcriptData,
@@ -67,30 +91,6 @@ export default function RunTheProcess({ user }: { user: KindeUser }) {
       console.error("Transcript error:", error);
     },
   });
-
-  // useEffect(() => {
-  //   const processFinalContent = async () => {
-  //     // Check if both finalImprovedContent and finalDetails are populated
-  //     if (
-  //       finalImprovedContent.length > 0 &&
-  //       Object.keys(finalDetails).length > 0
-  //     ) {
-  //       try {
-  //         const Presentation = await checkAndProcess(
-  //           RunCreationProcess(finalImprovedContent, finalDetails),
-  //           "Failed to create presentation"
-  //         );
-
-  //         console.log("presentation =>", Presentation);
-  //       } catch (error) {
-  //         console.error("Error processing presentation:", error);
-  //         // Optional: Handle error (e.g., show error message to user)
-  //       }
-  //     }
-  //   };
-
-  //   processFinalContent();
-  // }, [finalImprovedContent, finalDetails, user]);
 
   // Step 2: Convert to text array
   const {
