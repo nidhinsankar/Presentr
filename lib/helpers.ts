@@ -353,16 +353,16 @@ export async function DeductCoinsAndSavePresentationURL(
   source: string
 ) {
   try {
-    const updatedUser = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        tokenCount: {
-          decrement: 1,
-        },
-      },
-    });
+    // const updatedUser = await prisma.user.update({
+    //   where: {
+    //     id: userId,
+    //   },
+    //   data: {
+    //     tokenCount: {
+    //       decrement: 1,
+    //     },
+    //   },
+    // });
 
     const savedPresentation = await prisma.generatedPowerpoints.create({
       data: {
