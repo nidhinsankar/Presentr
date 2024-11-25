@@ -21,8 +21,8 @@ export const GET_TRANSCRIPT_QUERY = gql`
   }
 `;
 export const GET_CONVERT_TO_TEXT_ARRAY = gql`
-  query GetTextToArray($text: String!) {
-    convertTextToArray(text: $text)
+  query GetTextToArray($text: String!, $slideCount: String!) {
+    convertTextToArray(text: $text, slideCount: $slideCount)
   }
 `;
 

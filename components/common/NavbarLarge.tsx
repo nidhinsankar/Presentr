@@ -35,7 +35,7 @@ const NavbarLarge = async () => {
           <span>{siteName}</span>
         </Link>
         <div className="space-x-8 hidden md:flex text-sm">
-          <Link href="/">Generate Slides</Link>
+          <Link href="/generate-slides">Generate Slides</Link>
         </div>
       </div>
       <MobileNav user={user} tokenCount={userInDB?.tokenCount} />
