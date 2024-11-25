@@ -35,8 +35,7 @@ const NavbarLarge = async () => {
           <span>{siteName}</span>
         </Link>
         <div className="space-x-8 hidden md:flex text-sm">
-          <Link href="/examples">Examples</Link>
-          <Link href="/purchase-gems">Pricing</Link>
+          <Link href="/">Generate Slides</Link>
         </div>
       </div>
       <MobileNav user={user} tokenCount={userInDB?.tokenCount} />
@@ -52,15 +51,6 @@ const NavbarLarge = async () => {
             >
               Dashboard
               <MdOutlineDashboard className="h-5 w-5 inline-block" />
-            </Link>
-            <Link
-              href="/purchase-gems"
-              className={buttonVariants({
-                variant: "outline",
-                className: "flex gap-2 items-center",
-              })}
-            >
-              Buy Gems <LiaGemSolid className="h-6 w-6" />
             </Link>
             <ProfilePopover user={user} tokenCount={userInDB?.tokenCount} />
           </div>

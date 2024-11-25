@@ -6,7 +6,7 @@ import { FaRobot } from "react-icons/fa";
 import { PiMicrosoftPowerpointLogoFill } from "react-icons/pi";
 import { MdBrandingWatermark } from "react-icons/md";
 
-const siteName = "YouTubeToSlides";
+const siteName = "Presentr";
 
 const features = [
   {
@@ -87,48 +87,61 @@ export const tips = [
 
 export const examples = [
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
   {
-    title: "Solving Linear Equations: Isolating Variables for Function Analysis",
-    description: "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
+    title:
+      "Solving Linear Equations: Isolating Variables for Function Analysis",
+    description:
+      "Learn to isolate variables in linear equations, derive functions, and apply practical insights for problem-solving.",
     createdAt: "2024-09-05",
     link: "https://utfs.io/f/a5eefbee-f35e-40d0-a789-ec0a98cd70cd-8zz4vy.pptx",
   },
-
-]
+];
 
 export { features, siteName };
