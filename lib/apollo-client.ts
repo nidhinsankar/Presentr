@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8686/graphql",
+  // uri: "http://localhost:8686/graphql",
+  uri: "https://presentr-modus-presentr.hypermode.app/graphql",
   credentials: "omit", // Changed from 'include' to 'omit' to avoid CORS issues
   headers: {
     "Content-Type": "application/json",

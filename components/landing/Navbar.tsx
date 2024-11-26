@@ -1,10 +1,14 @@
 "use client";
 import Image from "next/image";
 import logoImage from "@/assets/images/logo.svg";
-import Button from "@/components/landing/Button";
+import Button, { classes } from "@/components/landing/Button";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence, motion } from "framer-motion";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
+import Link from "next/link";
+import ProfilePopover from "../ProfilePopover";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -13,7 +17,12 @@ const navLinks = [
   { label: "FAQs", href: "#faqs" },
 ];
 
-export default function Navbar() {
+const LoggedLinks = [
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Create Slides", href: "/generate-slides" },
+];
+
+export default function Navbar({ user }: { user: KindeUser }) {
   const [isOpen, setIsOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +47,7 @@ export default function Navbar() {
         <div className="container max-w-5xl">
           <div
             ref={navbarRef}
-            className="border border-white/15 rounded-[27px] md:rounded-full bg-black/85 text-white backdrop-blur"
+            className="border border-white/15 rounded-[27px] md:rounded-full bg-blue-300 text-black backdrop-blur"
           >
             <div className="grid grid-cols-2 lg:grid-cols-3 p-2 px-4 md:pr-2 items-center">
               <div>
@@ -49,17 +58,23 @@ export default function Navbar() {
                 />
               </div>
               <div className="lg:flex items-center justify-center hidden">
-                <nav className="flex gap-6 font-medium">
-                  {navLinks.map((link) => (
-                    <a
-                      href={link.href}
-                      key={link.label}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
+                {user ? (
+                  <>
+                    <nav className="flex gap-6 font-medium">
+                      {LoggedLinks.map((link) => (
+                        <Link href={link.href}>{link.label}</Link>
+                      ))}
+                    </nav>
+                  </>
+                ) : (
+                  <nav className="flex gap-6 font-medium">
+                    {navLinks.map((link) => (
+                      <Link href={link.href} key={link.label}>
+                        {link.label}
+                      </Link>
+                    ))}
+                  </nav>
+                )}
               </div>
               <div className="flex justify-end gap-4">
                 <svg
@@ -104,21 +119,30 @@ export default function Navbar() {
                     )}
                   ></line>
                 </svg>
-
-                <Button
-                  variant="secondary"
-                  className="hidden md:inline-flex items-center"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Log In
-                </Button>
-                <Button
-                  variant="primary"
-                  className="hidden md:inline-flex items-center"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Sign Up
-                </Button>
+                {user ? (
+                  <>
+                    <ProfilePopover user={user} tokenCount={10} />
+                  </>
+                ) : (
+                  <>
+                    <LoginLink
+                      className={classes({
+                        variant: "secondary",
+                        className: "flex justify-center items-center",
+                      })}
+                    >
+                      Log In
+                    </LoginLink>
+                    <RegisterLink
+                      className={classes({
+                        variant: "primary",
+                        className: "flex justify-center items-center",
+                      })}
+                    >
+                      Sign Up
+                    </RegisterLink>
+                  </>
+                )}
               </div>
             </div>
             <AnimatePresence>
@@ -130,24 +154,47 @@ export default function Navbar() {
                   className="overflow-hidden"
                 >
                   <div className="flex flex-col items-center gap-4 py-4">
-                    {navLinks.map((link) => (
-                      <a
-                        href={link.href}
-                        key={link.label}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                    <Button
-                      variant="secondary"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Log In
-                    </Button>
-                    <Button variant="primary" onClick={() => setIsOpen(false)}>
-                      Sign Un
-                    </Button>
+                    {user ? (
+                      <>
+                        <nav className="flex gap-6 font-medium">
+                          {LoggedLinks.map((link) => (
+                            <Link href={link.href}>{link.label}</Link>
+                          ))}
+                        </nav>
+                      </>
+                    ) : (
+                      <nav className="flex gap-6 font-medium">
+                        {navLinks.map((link) => (
+                          <Link href={link.href} key={link.label}>
+                            {link.label}
+                          </Link>
+                        ))}
+                      </nav>
+                    )}
+                    {user ? (
+                      <>
+                        <ProfilePopover user={user} tokenCount={10} />
+                      </>
+                    ) : (
+                      <>
+                        <LoginLink
+                          className={classes({
+                            variant: "secondary",
+                            className: "flex justify-center items-center",
+                          })}
+                        >
+                          Log In
+                        </LoginLink>
+                        <RegisterLink
+                          className={classes({
+                            variant: "primary",
+                            className: "flex justify-center items-center",
+                          })}
+                        >
+                          Sign Up
+                        </RegisterLink>
+                      </>
+                    )}
                   </div>
                 </motion.div>
               )}

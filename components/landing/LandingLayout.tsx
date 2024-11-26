@@ -1,3 +1,4 @@
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import CallToAction from "./CallToAction";
 import Faqs from "./Faqs";
 import Features from "./Features";
@@ -7,10 +8,10 @@ import Introduction from "./Introduction";
 import Navbar from "./Navbar";
 import LogoTicker from "./Ticker";
 
-export default function LandingLayout() {
+export default function LandingLayout({ user }: { user: KindeUser }) {
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <Hero />
       <LogoTicker />
       <Introduction />

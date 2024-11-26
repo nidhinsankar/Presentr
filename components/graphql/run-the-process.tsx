@@ -351,7 +351,7 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
             title: "Success!",
             description: "Your presentation has been created successfully.",
           });
-          router.push("/dashboard");
+          // router.push("/dashboard");
         } catch (error) {
           console.error("Error processing presentation:", error);
           toast({
@@ -398,138 +398,153 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-center text-gray-900 sm:text-4xl mb-8">
-          Hi {user.given_name}! Enter A YouTube URL. We will generate an amazing
-          presentation for you!
-        </h2>
-        <p className="text-center text-gray-600 mb-12">
-          Make sure you follow all the tips below before submitting the video
-          URL.
-        </p>
+    <div className="flex flex-col lg:flex-row">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-extrabold text-center text-gray-900 sm:text-4xl mb-8">
+            Hi {user.given_name}! Enter A YouTube URL. We will generate an
+            amazing presentation for you!
+          </h2>
+          <p className="text-center text-gray-600 mb-12">
+            Make sure you follow all the tips below before submitting the video
+            URL.
+          </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {tips.map((tip, index) => (
-            <Card key={index} className="bg-white shadow-lg border-none">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-4">
-                  {index === 0 ? (
-                    <Link2 className="h-6 w-6" />
-                  ) : index === 1 ? (
-                    <Lock className="h-6 w-6" />
-                  ) : (
-                    <Mic2 className="h-6 w-6" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {tips.map((tip, index) => (
+              <Card key={index} className="bg-white shadow-lg border-none">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-4">
+                    {index === 0 ? (
+                      <Link2 className="h-6 w-6" />
+                    ) : index === 1 ? (
+                      <Lock className="h-6 w-6" />
+                    ) : (
+                      <Mic2 className="h-6 w-6" />
+                    )}
+                  </div>
+                  <p className="text-gray-700 text-sm">{tip.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <form action={handleSubmit} className="space-y-6">
+            <Input
+              placeholder="Enter YouTube URL"
+              className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              type="text"
+              name="link"
+              required
+            />
+
+            <Input
+              placeholder="Your brand colour (Optional)"
+              className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              type="text"
+              name="brandColour"
+            />
+
+            <Select name="slideCount">
+              <SelectTrigger className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <SelectValue placeholder="How many slides do you want approximately?" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="5">5 (minimum)</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="15">15</SelectItem>
+                  <SelectItem value="20">20 (maximum)</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            {(isLoading || processState.parsedTranscript) && (
+              <Card className="bg-white border-none shadow-lg">
+                <CardContent className="p-6">
+                  <h3 className="font-semibold mb-4 text-gray-800">
+                    Status: {getStatusMessage()}
+                  </h3>
+                  <div className="space-y-3">
+                    <StatusIndicator
+                      isActive={processState.isSubmitting}
+                      isComplete={processState.parsedTranscript !== null}
+                      label="YouTube Link Processing"
+                    />
+                    <StatusIndicator
+                      isActive={arrayLoading}
+                      isComplete={processState.textArray !== null}
+                      label="Content Analysis"
+                    />
+                    <StatusIndicator
+                      isActive={improvedLoading}
+                      isComplete={processState.improvedContent !== null}
+                      label="Content Enhancement"
+                    />
+                    <StatusIndicator
+                      isActive={titleLoading}
+                      isComplete={processState.titleDescription !== null}
+                      label="Finalizing Presentation"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {(processState.error ||
+              arrayError ||
+              improvedError ||
+              titleError) && (
+              <Card className="bg-red-50 border-red-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2 text-red-800 mb-4">
+                    <AlertCircle className="h-5 w-5" />
+                    <span className="font-semibold">Error</span>
+                  </div>
+                  <div className="text-red-700 space-y-2">
+                    {processState.error && <p>{processState.error}</p>}
+                    {arrayError && <p>{arrayError.message}</p>}
+                    {improvedError && <p>{improvedError.message}</p>}
+                    {titleError && <p>{titleError.message}</p>}
+                  </div>
+                  {(arrayError || improvedError || titleError) && (
+                    <Button
+                      onClick={retryProcess}
+                      className="mt-4 bg-red-100 text-red-800 hover:bg-red-200"
+                    >
+                      Retry Failed Steps
+                    </Button>
                   )}
-                </div>
-                <p className="text-gray-700 text-sm">{tip.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            )}
+
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className={`w-full p-6 rounded-lg font-semibold text-white transition-colors ${
+                isLoading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+              }`}
+            >
+              {isLoading ? "Processing..." : "Generate Presentation"}
+            </Button>
+          </form>
         </div>
-
-        <form action={handleSubmit} className="space-y-6">
-          <Input
-            placeholder="Enter YouTube URL"
-            className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            type="text"
-            name="link"
-            required
-          />
-
-          <Input
-            placeholder="Your brand colour (Optional)"
-            className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            type="text"
-            name="brandColour"
-          />
-
-          <Select name="slideCount">
-            <SelectTrigger className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-              <SelectValue placeholder="How many slides do you want approximately?" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="5">5 (minimum)</SelectItem>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="15">15</SelectItem>
-                <SelectItem value="20">20 (maximum)</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          {(isLoading || processState.parsedTranscript) && (
-            <Card className="bg-white border-none shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4 text-gray-800">
-                  Status: {getStatusMessage()}
-                </h3>
-                <div className="space-y-3">
-                  <StatusIndicator
-                    isActive={processState.isSubmitting}
-                    isComplete={processState.parsedTranscript !== null}
-                    label="YouTube Link Processing"
-                  />
-                  <StatusIndicator
-                    isActive={arrayLoading}
-                    isComplete={processState.textArray !== null}
-                    label="Content Analysis"
-                  />
-                  <StatusIndicator
-                    isActive={improvedLoading}
-                    isComplete={processState.improvedContent !== null}
-                    label="Content Enhancement"
-                  />
-                  <StatusIndicator
-                    isActive={titleLoading}
-                    isComplete={processState.titleDescription !== null}
-                    label="Finalizing Presentation"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {(processState.error ||
-            arrayError ||
-            improvedError ||
-            titleError) && (
-            <Card className="bg-red-50 border-red-200">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-2 text-red-800 mb-4">
-                  <AlertCircle className="h-5 w-5" />
-                  <span className="font-semibold">Error</span>
-                </div>
-                <div className="text-red-700 space-y-2">
-                  {processState.error && <p>{processState.error}</p>}
-                  {arrayError && <p>{arrayError.message}</p>}
-                  {improvedError && <p>{improvedError.message}</p>}
-                  {titleError && <p>{titleError.message}</p>}
-                </div>
-                {(arrayError || improvedError || titleError) && (
-                  <Button
-                    onClick={retryProcess}
-                    className="mt-4 bg-red-100 text-red-800 hover:bg-red-200"
-                  >
-                    Retry Failed Steps
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          )}
-
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full p-6 rounded-lg font-semibold text-white transition-colors ${
-              isLoading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
-            }`}
-          >
-            {isLoading ? "Processing..." : "Generate Presentation"}
-          </Button>
-        </form>
+      </div>
+      <div>
+        <Card>
+          <h2>Generated Content</h2>
+          {finalImprovedContent.map((contents) => (
+            <div>
+              <h1>{contents?.title}</h1>
+              {contents?.content?.map((con) => (
+                <p>{con}</p>
+              ))}
+            </div>
+          ))}
+        </Card>
       </div>
     </div>
   );
