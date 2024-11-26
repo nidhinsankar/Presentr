@@ -1,78 +1,183 @@
-import React from "react";
-import { Input } from "../ui/input";
-import Link from "next/link";
-import { buttonVariants } from "../ui/button";
-import { FaYoutube, FaArrowRight } from "react-icons/fa";
-import { RiSlideshowLine } from "react-icons/ri";
-import {RegisterLink, LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
+"use client";
 
-const Hero = () => {
-  const user = false;
+import Button from "@/components/landing/Button";
+import design1Image from "@/assets/images/design-example-1.png";
+import design2Image from "@/assets/images/design-example-2.png";
+import Image from "next/image";
+import Pointer from "@/components/landing/Pointer";
+import { motion, useAnimate } from "framer-motion";
+import { useEffect } from "react";
+import cursorYouImage from "@/assets/images/cursor-you.svg";
+
+export default function Hero() {
+  const [leftDesignScope, leftDesignAnimate] = useAnimate();
+  const [leftPointerScope, leftPointerAnimate] = useAnimate();
+  const [rightDesignScope, rightDesignAnimate] = useAnimate();
+  const [rightPointerScope, rightPointerAnimate] = useAnimate();
+
+  useEffect(() => {
+    leftDesignAnimate([
+      [
+        leftDesignScope.current,
+        {
+          opacity: 1,
+        },
+        { duration: 0.5 },
+      ],
+      [
+        leftDesignScope.current,
+        {
+          y: 0,
+          x: 0,
+        },
+        { duration: 0.5 },
+      ],
+    ]);
+
+    leftPointerAnimate([
+      [
+        leftPointerScope.current,
+        {
+          opacity: 1,
+        },
+        {
+          duration: 0.5,
+        },
+      ],
+      [
+        leftPointerScope.current,
+        {
+          y: 0,
+          x: -100,
+        },
+        {
+          duration: 0.5,
+        },
+      ],
+      [
+        leftPointerScope.current,
+        {
+          x: 0,
+          y: [0, 16, 0],
+        },
+        {
+          duration: 0.5,
+          ease: "easeInOut",
+        },
+      ],
+    ]);
+
+    rightDesignAnimate([
+      [
+        rightDesignScope.current,
+        {
+          opacity: 1,
+        },
+        { duration: 0.5, delay: 1.5 },
+      ],
+      [
+        rightDesignScope.current,
+        { x: 0, y: 0 },
+        {
+          duration: 0.5,
+        },
+      ],
+    ]);
+
+    rightPointerAnimate([
+      [
+        rightPointerScope.current,
+        {
+          opacity: 1,
+        },
+        {
+          duration: 0.5,
+          delay: 1.5,
+        },
+      ],
+      [
+        rightPointerScope.current,
+        {
+          x: 175,
+          y: 0,
+        },
+        {
+          duration: 0.5,
+        },
+      ],
+      [
+        rightPointerScope.current,
+        {
+          x: 0,
+          y: [0, 20, 0],
+        },
+        { duration: 0.5 },
+      ],
+    ]);
+  }, []);
 
   return (
-    <section className="relative overflow-hidden pt-6">
+    <section
+      className="py-24 overflow-x-clip"
+      style={{ cursor: `url(${cursorYouImage.src}), auto` }}
+    >
       <div className="container relative">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        <motion.div
+          ref={leftDesignScope}
+          initial={{ opacity: 0, y: 100, x: -100 }}
+          drag
+          className="absolute -left-32 top-16 hidden lg:block"
         >
-          <div
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-            className="relative left-[calc(50%-13rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b83f656] to-[#3b83f69d] opacity-30 sm:left-[calc(50%-36rem)] sm:w-[72.1875rem] animate-pulse duration-3000"
-          />
-        </div>
-      </div>
-      <div className="flex flex-wrap items-center">
-        <div className="w-full px-4">
-          <div className="mx-auto max-w-[900px] text-left md:text-center">
-            <h3 className="font-bold text-center flex gap-4 flex-1 md:justify-center mb-10 mt-20">
-              <FaYoutube className="h-6 w-6 inline-block" />
-              <FaArrowRight className="h-6 w-6 inline-block" />
-              <RiSlideshowLine className="h-6 w-6 inline-block" />
-            </h3>
-            <h1 className="mb-6 text-2xl font-bold leading-snug text-gray-900 sm:text-4xl lg:text-6xl lg:leading-[1.2]">
-              Generate educational Powerpoints from YouTube videos
-            </h1>
-            <p className="mx-auto mb-9 max-w-[800px] text-base font-medium text-gray-600 sm:text-2xl sm:leading-[1.44]">
-              An online tool for teachers that allows you to convert educational
-              YouTube videos into educational presentations.
-            </p>
-            <div className="flex items-center flex-1 md:justify-center gap-4">
-              {user ? (
-                <>
-                  <Input
-                    type="text"
-                    placeholder="Enter a YouTube URL"
-                    className="w-full p-8 text-gray-400 bg-white rounded-lg focus:outline-none"
-                  />
-                  <Link
-                    href="/generate"
-                    className={buttonVariants({
-                      variant: "default",
-                      className: "h-16 w-48",
-                    })}
-                  >
-                    Generate
-                  </Link>
-                </>
-              ) : (
-                <RegisterLink
-                  className={buttonVariants({
-                    variant: "default",
-                  })}
-                >
-                  Get started
-                </RegisterLink>
-              )}
-            </div>
+          <Image src={design1Image} alt="Design 1 image" draggable="false" />
+        </motion.div>
+        <motion.div
+          ref={leftPointerScope}
+          initial={{ opacity: 0, y: 100, x: -200 }}
+          className="absolute left-56 top-96 hidden lg:block"
+        >
+          <Pointer name="Ervan" />
+        </motion.div>
+
+        <motion.div
+          ref={rightDesignScope}
+          initial={{ opacity: 0, x: 100, y: 100 }}
+          drag
+          className="absolute -right-64 -top-16 hidden lg:block"
+        >
+          <Image src={design2Image} alt="Design 2 image" draggable="false" />
+        </motion.div>
+        <motion.div
+          ref={rightPointerScope}
+          initial={{ opacity: 0, x: 275, y: 100 }}
+          className="absolute right-80 -top-4 hidden lg:block"
+        >
+          <Pointer name="Captain" color="red" />
+        </motion.div>
+
+        <div className="flex justify-center">
+          <div className="py-1 px-3 inline-flex text-neutral-950 font-semibold bg-gradient-to-r from-purple-400 to-pink-400 rounded-full">
+            ✨$7.5M seed round raised
           </div>
+        </div>
+        <h1 className="text-6xl md:text-7xl lg:text-8xl font-medium text-center mt-6">
+          Impactful design, created effortlessly
+        </h1>
+        <p className="text-center text-xl text-gray-600 mt-8 max-w-2xl mx-auto">
+          Create stunning designs effortlessly using intuitive tools that bring
+          your creative ideas to life, making every project impactful and
+          unique.
+        </p>
+        <div className="flex items-center justify-center border border-white/15 p-2 rounded-full mt-8 max-w-lg mx-auto">
+          <Button
+            type="submit"
+            variant="primary"
+            size="sm"
+            className="whitespace-nowrap"
+          >
+            GET STARTED
+          </Button>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

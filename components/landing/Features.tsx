@@ -1,26 +1,117 @@
-import React from "react";
-import SectionTitle from "../common/SectionTitle";
-import { features } from "@/data";
-import SingleFeatureCard from "../cards/SingleFeatureCard";
+import FeatureCard from "@/components/ui/FeatureCard";
+import Tag from "@/components/ui/Tag";
+import Image from "next/image";
+import { Avatar } from "@/components/ui/avatar";
+import Key from "@/components/ui/Key";
 
-const Features = () => {
+const features = [
+  "Asset Library",
+  "Code Preview",
+  "Flow Mode",
+  "Smart Sync",
+  "Auto Layout",
+  "Fast Search",
+  "Smart Guides",
+];
+
+export default function Features() {
   return (
-    <section className="pb-8 pt-20 lg:pb-[-70px] lg:pt-[120px]">
+    <section id="features" className="py-24">
       <div className="container">
-        <SectionTitle
-          subtitle="Benefits of using YouTubeToSlides"
-          title="Why choose us?"
-          paragraph="Our platform is designed to make your life easier. We automate the process of converting YouTube videos into PowerPoint presentations, saving you time and effort."
-        />
-        <div className="-mx-4 mt-12 flex flex-wrap lg:mt-20">
-        {features.map((feature, i) => (
-          <SingleFeatureCard key={i} feature={feature} />
-        ))}
+        <div className="flex justify-center">
+          <Tag>Features</Tag>
+        </div>
+        <h2 className="text-6xl font-medium text-center mt-6 max-w-2xl mx-auto">
+          Where power meets <span className="text-[#2463eb]">simplicity</span>
+        </h2>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8">
+          <FeatureCard
+            title="Real-time Colaboration"
+            description="Work together seamless with conflict-free team editing"
+            className="md:col-span-2 lg:col-span-1 group"
+          >
+            <div className="aspect-video flex items-center justify-center">
+              <Avatar className="z-40">
+                <Image src={""} alt="Avatar 1" className="rounded-full" />
+              </Avatar>
+              <Avatar className="-ml-6 border-indigo-500 z-30">
+                <Image src={""} alt="Avatar 2" className="rounded-full" />
+              </Avatar>
+              <Avatar className="-ml-6 border-amber-500 z-20">
+                <Image src={""} alt="Avatar 3" className="rounded-full" />
+              </Avatar>
+              <Avatar className="-ml-6 z-10 border-transparent group-hover:border-green-500 transition">
+                <div className="relative size-full bg-neutral-700 rounded-full inline-flex items-center justify-center gap-1">
+                  <Image
+                    src={""}
+                    alt="Avatar 4"
+                    className="absolute size-full rounded-full opacity-0 group-hover:opacity-100 transition duration-500"
+                  />
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="size-1.5 bg-white rounded-full inline-flex"
+                    ></span>
+                  ))}
+                </div>
+              </Avatar>
+            </div>
+          </FeatureCard>
+          <FeatureCard
+            title="Interactive Prototyping"
+            description="Engage your clients with prototypes that react to user actions"
+            className="md:col-span-2 lg:col-span-1 group"
+          >
+            <div className="flex items-center justify-center aspect-video">
+              <p className="text-4xl text-center font-extrabold text-white/20 group-hover:text-white/10 transition duration-500">
+                We&apos;ve achieved{" "}
+                <span className="relative bg-gradient-to-tr from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  <span>incredible</span>
+                  <video
+                    src="/assets/gif-incredible.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute bottom-full left-1/2 -translate-x-1/2 rounded-2xl shadow-xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
+                  ></video>
+                </span>{" "}
+                growth this year
+              </p>
+            </div>
+          </FeatureCard>
+          <FeatureCard
+            title="Keyboard Quick Actions"
+            description="Powerful commands to help you create designs more quickly"
+            className="md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto group"
+          >
+            <div className="flex items-center justify-center aspect-video gap-4">
+              <Key className="w-28 outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500">
+                shift
+              </Key>
+              <Key className="outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500 delay-150">
+                alt
+              </Key>
+              <Key className="outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500 delay-300">
+                C
+              </Key>
+            </div>
+          </FeatureCard>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-3 justify-center">
+          {features.map((feature) => (
+            <div
+              key={feature}
+              className="bg-[#F3F4F6] text-neutral-900 border-white/10 inline-flex px-3 md:px-5 py-1.5 md:py-2 rounded-2xl gap-3 items-center hover:scale-105 transition duration-500 group"
+            >
+              <span className="rounded-full size-5 text-xl inline-flex items-center justify-center bg-[#2463eb] text-neutral-200 group-hover:rotate-45 transition duration-500">
+                &#10038;
+              </span>
+              <span className="font-medium md:text-lg">{feature}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      </div>
-      
     </section>
   );
-};
-
-export default Features;
+}
