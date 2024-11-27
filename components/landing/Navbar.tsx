@@ -13,7 +13,6 @@ import ProfilePopover from "../ProfilePopover";
 const navLinks = [
   { label: "Home", href: "#" },
   { label: "Features", href: "#features" },
-  { label: "Integrations", href: "#integrations" },
   { label: "FAQs", href: "#faqs" },
 ];
 
@@ -47,15 +46,17 @@ export default function Navbar({ user }: { user: KindeUser }) {
         <div className="container max-w-5xl">
           <div
             ref={navbarRef}
-            className="border border-white/15 rounded-[27px] md:rounded-full bg-black/50 text-white backdrop-blur"
+            className="border border-white/15 rounded-[27px] md:rounded-full bg-black/60 text-white backdrop-blur"
           >
             <div className="grid grid-cols-2 lg:grid-cols-3 p-2 px-4 md:pr-2 items-center">
               <div>
-                <Image
-                  src={logoImage}
-                  alt="Layers logo"
-                  className="h-9 w-auto md:h-auto"
-                />
+                <Link href={"/"}>
+                  <Image
+                    src={logoImage}
+                    alt="Layers logo"
+                    className="h-9 w-auto md:h-auto"
+                  />
+                </Link>
               </div>
               <div className="lg:flex items-center justify-center hidden">
                 {user ? (
@@ -136,7 +137,8 @@ export default function Navbar({ user }: { user: KindeUser }) {
                     <RegisterLink
                       className={classes({
                         variant: "primary",
-                        className: "flex justify-center items-center",
+                        className:
+                          "flex hover:bg-blue-700 justify-center items-center",
                       })}
                     >
                       Sign Up

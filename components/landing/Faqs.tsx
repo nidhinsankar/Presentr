@@ -6,29 +6,29 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const faqs = [
   {
-    question: "How is Layers different from other design tools?",
+    question: "What is the purpose of this tool?",
     answer:
-      "Unlike traditional design tools, Layers prioritizes speed and simplicity without sacrificing power. Our intelligent interface adapts to your workflow, reducing clicks and keeping you in your creative flow.",
+      "Present AI automatically transforms YouTube videos into professional presentations, saving you hours of effort while ensuring high-quality results.",
   },
   {
-    question: "Is there a learning curve?",
+    question: "Who is this tool designed for?",
     answer:
-      "Layers is designed to feel intuitive from day one. Most designers are productive within hours, not weeks. We also provide interactive tutorials and comprehensive documentation to help you get started.",
+      "Our tool is perfect for professionals, educators, content creators, and anyone who needs to create engaging presentations quickly and efficiently.",
   },
   {
-    question: "How do you handle version control?",
+    question: "How does the video-to-presentation process work?",
     answer:
-      "Every change in Layers is automatically saved and versioned. You can review history, restore previous versions, and create named versions for important milestones.",
+      "Simply upload a YouTube video link, and our AI will analyze its content to generate a structured, visually appealing presentation within seconds.",
   },
   {
-    question: "Can I work offline?",
+    question: "What formats are supported for export?",
     answer:
-      "Yes! Layers includes a robust offline mode. Changes sync automatically when you're back online, so you can keep working anywhere.",
+      "Currently, you can export your presentations in PowerPoint (PPTX) format.",
   },
   {
-    question: "How does Layers handle collaboration?",
+    question: "Does the tool preserve the original style of the video?",
     answer:
-      "Layers is built for collaboration. You can invite team members to your projects, share feedback, and work together in real-time.",
+      "We strive to capture the essence of your video by extracting key visuals, themes, and information, while presenting them in a clean, professional format.",
   },
 ];
 
@@ -41,7 +41,7 @@ export default function Faqs() {
           <Tag>Faqs</Tag>
         </div>
         <h2 className="text-6xl text-center mt-6 font-medium max-w-xl mx-auto">
-          Question? We&apos;ve got{" "}
+          Questions? We&apos;ve got{" "}
           <span className="text-[#2463eb]">answers</span>
         </h2>
         <div className="mt-12 flex flex-col gap-6 max-w-xl mx-auto">

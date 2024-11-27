@@ -1,8 +1,8 @@
 import Image from "next/image";
-import logoImage from "@/assets/images/logo.svg";
+import logoImage from "@/assets/images/footer-logo.svg";
 
 const footerLinks = [
-  { href: "#", label: "Contact" },
+  { href: "mailto: mandadedarshan@gmail.com", label: "Contact" },
   { href: "#", label: "Privacy Policy" },
   { href: "#", label: "Terms & Conditions" },
 ];

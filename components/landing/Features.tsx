@@ -5,13 +5,13 @@ import { Avatar } from "@/components/ui/avatar";
 import Key from "@/components/ui/Key";
 
 const features = [
-  "Asset Library",
-  "Code Preview",
-  "Flow Mode",
+  "Multi-Language Support",
+  "Collaboration",
+  "Speech to text",
   "Smart Sync",
-  "Auto Layout",
-  "Fast Search",
-  "Smart Guides",
+  "Custom Styling",
+  "Smooth Transitions",
+  "Custom Editor",
 ];
 
 export default function Features() {
@@ -26,8 +26,8 @@ export default function Features() {
         </h2>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8">
           <FeatureCard
-            title="Real-time Colaboration"
-            description="Work together seamless with conflict-free team editing"
+            title="Smart Slide Summaries"
+            description="Presentr AI extracts key points and organizes them into clear, concise slides."
             className="md:col-span-2 lg:col-span-1 group"
           >
             <div className="aspect-video flex items-center justify-center">
@@ -58,15 +58,15 @@ export default function Features() {
             </div>
           </FeatureCard>
           <FeatureCard
-            title="Interactive Prototyping"
+            title="Instant Slide Generation"
             description="Engage your clients with prototypes that react to user actions"
             className="md:col-span-2 lg:col-span-1 group"
           >
-            <div className="flex items-center justify-center aspect-video">
-              <p className="text-4xl text-center font-extrabold text-white/20 group-hover:text-white/10 transition duration-500">
-                We&apos;ve achieved{" "}
-                <span className="relative bg-gradient-to-tr from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  <span>incredible</span>
+            <div className="relative flex items-center justify-center aspect-video">
+              <p className="text-4xl text-center font-extrabold text-neutral-800 group-hover:text-white/10 transition duration-500">
+                Before you{" "}
+                <span className="relative bg-gradient-to-tr from-blue-400 to-blue-400 bg-clip-text text-transparent">
+                  <span>blink</span>
                   <video
                     src="/assets/gif-incredible.mp4"
                     autoPlay
@@ -76,27 +76,30 @@ export default function Features() {
                     className="absolute bottom-full left-1/2 -translate-x-1/2 rounded-2xl shadow-xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
                   ></video>
                 </span>{" "}
-                growth this year
+                your eye
               </p>
             </div>
           </FeatureCard>
           <FeatureCard
-            title="Keyboard Quick Actions"
-            description="Powerful commands to help you create designs more quickly"
+            title="Video-to-visual Insights"
+            description="Transform video insights into visually engaging infographics."
             className="md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto group"
           >
             <div className="flex items-center justify-center aspect-video gap-4">
               <Key className="w-28 outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500">
-                shift
+                Upload
               </Key>
-              <Key className="outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500 delay-150">
-                alt
+              <Key className="w-28 outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500 delay-150">
+                Convert
               </Key>
-              <Key className="outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500 delay-300">
-                C
+              <Key className="w-28 outline outline-2 outline-offset-4 outline-transparent group-hover:outline-lime-400 group-hover:translate-y-1 transition-all duration-500 delay-300">
+                Present
               </Key>
             </div>
           </FeatureCard>
+        </div>
+        <div className="justify-center items-center mt-5">
+          <Tag>Coming Soon...</Tag>
         </div>
         <div className="mt-8 flex flex-wrap gap-3 justify-center">
           {features.map((feature) => (
