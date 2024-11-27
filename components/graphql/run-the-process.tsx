@@ -17,7 +17,6 @@ import { RunCreationProcess } from "@/lib/actions";
 import { GeneratedPowerpoint, Tips, TitleAndDescription } from "@/types";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { tips } from "@/data";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
