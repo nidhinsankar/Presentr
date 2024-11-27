@@ -379,6 +379,7 @@ export async function DeductCoinsAndSavePresentationURL(
 
     return {
       success: true,
+      savedPresentation: savedPresentation,
     };
   } catch (error) {
     throw new Error("Failed to deduct coins and save presentation URL");

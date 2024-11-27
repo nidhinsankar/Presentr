@@ -221,6 +221,7 @@ export async function RunCreationProcess(
 
     return {
       success: true,
+      powerPoint: savePresentationAndUpdateDB.savedPresentation,
     };
   } catch (error) {
     throw new Error((error as Error).message);

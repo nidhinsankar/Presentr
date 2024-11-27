@@ -48,7 +48,7 @@ export default function Faqs() {
           {faqs.map((faq, faqIndex) => (
             <div
               key={faq.question}
-              className="text-neutral-900 bg-neutral-200 border border-white/10 p-6 rounded-2xl"
+              className="text-neutral-900 bg-[#F3F4F6] border border-white/10 p-6 rounded-2xl"
             >
               <div
                 className="flex items-center justify-between"

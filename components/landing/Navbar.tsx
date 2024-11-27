@@ -47,7 +47,7 @@ export default function Navbar({ user }: { user: KindeUser }) {
         <div className="container max-w-5xl">
           <div
             ref={navbarRef}
-            className="border border-white/15 rounded-[27px] md:rounded-full bg-blue-300 text-black backdrop-blur"
+            className="border border-white/15 rounded-[27px] md:rounded-full bg-black/50 text-white backdrop-blur"
           >
             <div className="grid grid-cols-2 lg:grid-cols-3 p-2 px-4 md:pr-2 items-center">
               <div>

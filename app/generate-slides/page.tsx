@@ -17,7 +17,7 @@ export default async function ModusgraphqlPage() {
     redirect("/");
   }
   return (
-    <div className="flex justify-center">
+    <div className="max-w-5xl mx-auto">
       <RunTheProcess user={user} />
       {/* <PresentationCreator />÷ */}
       {/* <CleanTranscript /> */}

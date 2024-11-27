@@ -6,6 +6,7 @@ const httpLink = createHttpLink({
   credentials: "omit", // Changed from 'include' to 'omit' to avoid CORS issues
   headers: {
     "Content-Type": "application/json",
+    authorization: `Bearer ${process.env.NEXT_PUBLIC_MODUS_API_KEY}`,
   },
 });
 

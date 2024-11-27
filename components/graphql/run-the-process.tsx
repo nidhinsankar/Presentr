@@ -14,14 +14,27 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import { checkAndProcess } from "@/lib/actions";
 import { CheckVideoDetails, ParseXML } from "@/lib/helpers";
 import { RunCreationProcess } from "@/lib/actions";
-import { Tips, TitleAndDescription } from "@/types";
+import { GeneratedPowerpoint, Tips, TitleAndDescription } from "@/types";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { tips } from "@/data";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Link2, Lock, Mic2, AlertCircle } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Link2,
+  Lock,
+  Mic2,
+  AlertCircle,
+  FileText,
+  Volume2,
+  Wand2,
+} from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -31,6 +44,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
+import PresentationCard from "../cards/PresentationCard";
 
 interface ProcessState {
   isSubmitting: boolean;
@@ -63,6 +77,8 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
     title: "",
   });
   const [videoID, setVideoID] = useState("");
+  const [presentationDetail, setPresentationDetail] =
+    useState<GeneratedPowerpoint>();
   const router = useRouter();
   const { toast } = useToast();
   // Validation function
@@ -157,6 +173,11 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
         throw new Error("No English subtitles found");
       }
 
+      setProcessState((prev) => ({ ...prev, isSubmitting: true }));
+      toast({
+        title: "Youtube Link",
+        description: "Successfully fetched youtube videos details",
+      });
       // Parse transcript
       const parsedTranscript = await checkAndProcess(
         ParseXML(englishSubtitls.url),
@@ -347,10 +368,22 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
             RunCreationProcess(finalImprovedContent, finalDetails, videoID),
             "Failed to create presentation"
           );
+          setProcessState((prev) => ({
+            ...prev,
+            isSubmitting: false,
+            error: null,
+            cleanedTranscript: null,
+            parsedTranscript: null,
+            textArray: null,
+            improvedContent: null,
+            titleDescription: null,
+          }));
           toast({
             title: "Success!",
             description: "Your presentation has been created successfully.",
           });
+          console.log("presentation =>", Presentation);
+          setPresentationDetail(Presentation.powerPoint);
           // router.push("/dashboard");
         } catch (error) {
           console.error("Error processing presentation:", error);
@@ -398,19 +431,39 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-center text-gray-900 sm:text-4xl mb-8">
-            Hi {user.given_name}! Enter A YouTube URL. We will generate an
-            amazing presentation for you!
-          </h2>
-          <p className="text-center text-gray-600 mb-12">
-            Make sure you follow all the tips below before submitting the video
-            URL.
-          </p>
+    <>
+      <h2 className="text-3xl font-extrabold text-gray-900 sm:text-3xl mb-2">
+        Hi {user.given_name}! Enter A YouTube URL. We will generate an amazing
+        presentation for you!
+      </h2>
+      <p className="font-semibold text-xl text-gray-600 mb-6">
+        Make sure you follow all the tips below before submitting the video URL.
+      </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div className="flex flex-col lg:flex-row w-full gap-5">
+        <div className="lg:w-[70%] flex flex-col gap-3">
+          <Card className="">
+            <CardContent className="p-6 space-y-4">
+              <h3 className="font-semibold">Requirements</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center space-x-2">
+                  <Link2 className="h-4 w-4 text-primary" />
+                  <span className="text-sm">Valid YouTube URL</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <FileText className="h-4 w-4 text-primary" />
+                  <span className="text-sm">Under 10 minutes</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Volume2 className="h-4 w-4 text-primary" />
+                  <span className="text-sm">Clear English audio</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+          <Card className="  py-4 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+              {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {tips.map((tip, index) => (
               <Card key={index} className="bg-white shadow-lg border-none">
                 <CardContent className="p-6">
@@ -427,126 +480,141 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </div> */}
 
-          <form action={handleSubmit} className="space-y-6">
-            <Input
-              placeholder="Enter YouTube URL"
-              className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              type="text"
-              name="link"
-              required
-            />
+              <form action={handleSubmit} className="space-y-6">
+                <Input
+                  placeholder="Enter YouTube URL"
+                  className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  type="text"
+                  name="link"
+                  required
+                />
 
-            <Input
-              placeholder="Your brand colour (Optional)"
-              className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              type="text"
-              name="brandColour"
-            />
+                <Input
+                  placeholder="Your brand colour (Optional)"
+                  className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  type="text"
+                  name="brandColour"
+                />
 
-            <Select name="slideCount">
-              <SelectTrigger className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <SelectValue placeholder="How many slides do you want approximately?" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="5">5 (minimum)</SelectItem>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="15">15</SelectItem>
-                  <SelectItem value="20">20 (maximum)</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+                <Select name="slideCount">
+                  <SelectTrigger className="w-full p-4 text-gray-700 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <SelectValue placeholder="How many slides do you want approximately?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="5">5 (minimum)</SelectItem>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="15">15</SelectItem>
+                      <SelectItem value="20">20 (maximum)</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
 
-            {(isLoading || processState.parsedTranscript) && (
-              <Card className="bg-white border-none shadow-lg">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4 text-gray-800">
-                    Status: {getStatusMessage()}
-                  </h3>
-                  <div className="space-y-3">
-                    <StatusIndicator
-                      isActive={processState.isSubmitting}
-                      isComplete={processState.parsedTranscript !== null}
-                      label="YouTube Link Processing"
-                    />
-                    <StatusIndicator
-                      isActive={arrayLoading}
-                      isComplete={processState.textArray !== null}
-                      label="Content Analysis"
-                    />
-                    <StatusIndicator
-                      isActive={improvedLoading}
-                      isComplete={processState.improvedContent !== null}
-                      label="Content Enhancement"
-                    />
-                    <StatusIndicator
-                      isActive={titleLoading}
-                      isComplete={processState.titleDescription !== null}
-                      label="Finalizing Presentation"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                {(isLoading || processState.parsedTranscript) && (
+                  <Card className="bg-white border-none shadow-lg">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold mb-4 text-gray-800">
+                        Status: {getStatusMessage()}
+                      </h3>
+                      <div className="space-y-3">
+                        <StatusIndicator
+                          isActive={processState.isSubmitting}
+                          isComplete={processState.parsedTranscript !== null}
+                          label="YouTube Link Processing"
+                        />
+                        <StatusIndicator
+                          isActive={arrayLoading}
+                          isComplete={processState.textArray !== null}
+                          label="Content Analysis"
+                        />
+                        <StatusIndicator
+                          isActive={improvedLoading}
+                          isComplete={processState.improvedContent !== null}
+                          label="Content Enhancement"
+                        />
+                        <StatusIndicator
+                          isActive={titleLoading}
+                          isComplete={processState.titleDescription !== null}
+                          label="Finalizing Presentation"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
-            {(processState.error ||
-              arrayError ||
-              improvedError ||
-              titleError) && (
-              <Card className="bg-red-50 border-red-200">
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2 text-red-800 mb-4">
-                    <AlertCircle className="h-5 w-5" />
-                    <span className="font-semibold">Error</span>
-                  </div>
-                  <div className="text-red-700 space-y-2">
-                    {processState.error && <p>{processState.error}</p>}
-                    {arrayError && <p>{arrayError.message}</p>}
-                    {improvedError && <p>{improvedError.message}</p>}
-                    {titleError && <p>{titleError.message}</p>}
-                  </div>
-                  {(arrayError || improvedError || titleError) && (
-                    <Button
-                      onClick={retryProcess}
-                      className="mt-4 bg-red-100 text-red-800 hover:bg-red-200"
-                    >
-                      Retry Failed Steps
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            )}
+                {(processState.error ||
+                  arrayError ||
+                  improvedError ||
+                  titleError) && (
+                  <Card className="bg-red-50 border-red-200">
+                    <CardContent className="p-6">
+                      <div className="flex items-center space-x-2 text-red-800 mb-4">
+                        <AlertCircle className="h-5 w-5" />
+                        <span className="font-semibold">Error</span>
+                      </div>
+                      <div className="text-red-700 space-y-2">
+                        {processState.error && <p>{processState.error}</p>}
+                        {arrayError && <p>{arrayError.message}</p>}
+                        {improvedError && <p>{improvedError.message}</p>}
+                        {titleError && <p>{titleError.message}</p>}
+                      </div>
+                      {(arrayError || improvedError || titleError) && (
+                        <Button
+                          onClick={retryProcess}
+                          className="mt-4 bg-red-100 text-red-800 hover:bg-red-200"
+                        >
+                          Retry Failed Steps
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
 
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className={`w-full p-6 rounded-lg font-semibold text-white transition-colors ${
-                isLoading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
-              }`}
-            >
-              {isLoading ? "Processing..." : "Generate Presentation"}
-            </Button>
-          </form>
-        </div>
-      </div>
-      <div>
-        <Card>
-          <h2>Generated Content</h2>
-          {finalImprovedContent.map((contents) => (
-            <div>
-              <h1>{contents?.title}</h1>
-              {contents?.content?.map((con) => (
-                <p>{con}</p>
-              ))}
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className={`w-full p-6 rounded-lg font-semibold text-white transition-colors ${
+                    isLoading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                  }`}
+                >
+                  <Wand2 className="w-4 h-4 mx-2" />
+                  {isLoading ? "Processing..." : "Generate Presentation"}
+                </Button>
+              </form>
             </div>
-          ))}
-        </Card>
+          </Card>
+        </div>
+        {presentationDetail ? (
+          <div className="lg:w-[30%]">
+            <Card className="p-4">
+              <CardTitle>Generated Content</CardTitle>
+              <CardDescription>
+                Your Generatred Presentation will appear here
+              </CardDescription>
+              <CardContent>
+                <PresentationCard presentation={presentationDetail!} />
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <Card>
+            <CardContent className="p-6 space-y-4">
+              <h2 className="text-xl font-semibold">Generated Content</h2>
+              <p className="text-sm text-muted-foreground">
+                Your generated presentation will appear here...
+              </p>
+              <div className="aspect-video rounded-lg border-2 border-dashed flex items-center justify-center text-muted-foreground bg-slate-50">
+                Preview Area
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
-    </div>
+    </>
   );
 }
 
