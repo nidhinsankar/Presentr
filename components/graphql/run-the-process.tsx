@@ -203,7 +203,10 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error?.message,
+        description:
+          error instanceof Error
+            ? error.message
+            : "Failed to parse transcript ",
       });
     }
   };

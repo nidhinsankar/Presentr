@@ -3,7 +3,7 @@
 // import ImproveContent from "@/components/graphql/improve-content";
 import RunTheProcess from "@/components/graphql/run-the-process";
 // import TitleAndDescription from "@/components/graphql/title-and-description";
-import PresentationCreator from "@/components/presentation-creation";
+// import PresentationCreator from "@/components/presentation-creation";
 import { GetCleanedTranscript } from "@/lib/presentation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
