@@ -63,7 +63,9 @@ export default function Navbar({ user }: { user: KindeUser }) {
                   <>
                     <nav className="flex gap-6 font-medium">
                       {LoggedLinks.map((link) => (
-                        <Link href={link.href}>{link.label}</Link>
+                        <Link href={link.href} key={link.label}>
+                          {link.label}
+                        </Link>
                       ))}
                     </nav>
                   </>
@@ -160,7 +162,9 @@ export default function Navbar({ user }: { user: KindeUser }) {
                       <>
                         <nav className="flex gap-6 font-medium">
                           {LoggedLinks.map((link) => (
-                            <Link href={link.href}>{link.label}</Link>
+                            <Link href={link.href} key={link.label}>
+                              {link.label}
+                            </Link>
                           ))}
                         </nav>
                       </>
