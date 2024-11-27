@@ -463,25 +463,6 @@ export default function RunTheProcess({ user }: RunTheProcessProps) {
           </Card>
           <Card className="  py-4 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-              {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {tips.map((tip, index) => (
-              <Card key={index} className="bg-white shadow-lg border-none">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-4">
-                    {index === 0 ? (
-                      <Link2 className="h-6 w-6" />
-                    ) : index === 1 ? (
-                      <Lock className="h-6 w-6" />
-                    ) : (
-                      <Mic2 className="h-6 w-6" />
-                    )}
-                  </div>
-                  <p className="text-gray-700 text-sm">{tip.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div> */}
-
               <form action={handleSubmit} className="space-y-6">
                 <Input
                   placeholder="Enter YouTube URL"

@@ -36,7 +36,6 @@ export async function RunAuthCheck() {
   try {
     const { getUser } = getKindeServerSession();
     const user = (await getUser()) as KindeUser;
-
     if (!user) return { success: false };
 
     if (!user.id || !user.email) return { success: false };
