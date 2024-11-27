@@ -1,9 +1,11 @@
 import FeatureCard from "@/components/ui/FeatureCard";
 import Tag from "@/components/ui/Tag";
 import Image from "next/image";
+import Avatar1 from "@/assets/images/avatar-ashwin-santiago.jpg";
+import Avatar2 from "@/assets/images/avatar-lula-meyers.jpg";
+import Avatar3 from "@/assets/images/avatar-florence-shaw.jpg";
 import { Avatar } from "@/components/ui/avatar";
 import Key from "@/components/ui/Key";
-
 const features = [
   "Multi-Language Support",
   "Collaboration",
@@ -32,13 +34,17 @@ export default function Features() {
           >
             <div className="aspect-video flex items-center justify-center">
               <Avatar className="z-40">
-                <Image src={""} alt="Avatar 1" className="rounded-full" />
+                <Image
+                  src={Avatar1}
+                  alt="Avatar 1"
+                  className="w-28 ounded-full"
+                />
               </Avatar>
               <Avatar className="-ml-6 border-indigo-500 z-30">
-                <Image src={""} alt="Avatar 2" className="rounded-full" />
+                <Image src={Avatar2} alt="Avatar 2" className="rounded-full" />
               </Avatar>
               <Avatar className="-ml-6 border-amber-500 z-20">
-                <Image src={""} alt="Avatar 3" className="rounded-full" />
+                <Image src={Avatar3} alt="Avatar 3" className="rounded-full" />
               </Avatar>
               <Avatar className="-ml-6 z-10 border-transparent group-hover:border-green-500 transition">
                 <div className="relative size-full bg-neutral-700 rounded-full inline-flex items-center justify-center gap-1">
@@ -68,13 +74,14 @@ export default function Features() {
                 <span className="relative bg-gradient-to-tr from-blue-400 to-blue-400 bg-clip-text text-transparent">
                   <span>blink</span>
                   <video
-                    src="/assets/gif-incredible.mp4"
                     autoPlay
                     loop
                     muted
                     playsInline
                     className="absolute bottom-full left-1/2 -translate-x-1/2 rounded-2xl shadow-xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
-                  ></video>
+                  >
+                    <source src="/assets/gif-incredible.mp4" type="video/mp4" />
+                  </video>
                 </span>{" "}
                 your eye
               </p>
@@ -98,7 +105,7 @@ export default function Features() {
             </div>
           </FeatureCard>
         </div>
-        <div className="justify-center items-center mt-5">
+        <div className="flex justify-center items-center mt-5">
           <Tag>Coming Soon...</Tag>
         </div>
         <div className="mt-8 flex flex-wrap gap-3 justify-center">

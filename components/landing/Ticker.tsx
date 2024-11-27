@@ -7,6 +7,8 @@ import outsideLogo from "@/assets/images/outside.svg";
 import apexLogo from "@/assets/images/apex.svg";
 import celestialLogo from "@/assets/images/celestial.svg";
 import twiceLogo from "@/assets/images/twice.svg";
+import hashnodeLogo from "@/assets/hashnode.svg";
+import hypermodeLogo from "@/assets/hyper-mode.jpg";
 import Image from "next/image";
 import { Fragment } from "react";
 import { motion } from "framer-motion";
@@ -27,20 +29,21 @@ export default function LogoTicker() {
     <section className="py-24 overflow-x-clip">
       <div className="container">
         <h2 className="text-center text-neutral/50 text-xl">Powered by</h2>
-        <div className="flex overflow-hidden mt-12 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%)]">
-          <motion.div
-            animate={{ x: "-50%" }}
-            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
-            className="flex flex-none gap-24 pr-24"
-          >
-            {Array.from({ length: 2 }).map((_, i) => (
-              <Fragment key={i}>
-                {logos.map((logo) => (
-                  <Image src={logo.image} key={logo.name} alt={logo.name} />
-                ))}
-              </Fragment>
-            ))}
-          </motion.div>
+        <div className="flex overflow-hidden justify-center items-center space-x-14 ">
+          <Image
+            src={hashnodeLogo}
+            alt="hashnode"
+            width={100}
+            height={100}
+            className=" w-40"
+          />
+          <Image
+            src={hypermodeLogo}
+            className=" w-40 mt-2"
+            alt="hyper-mode"
+            width={100}
+            height={100}
+          />
         </div>
       </div>
     </section>
