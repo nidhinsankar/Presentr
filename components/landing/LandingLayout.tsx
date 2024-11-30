@@ -12,7 +12,7 @@ export default function LandingLayout({ user }: { user: KindeUser }) {
   return (
     <>
       <Navbar user={user} />
-      <Hero />
+      <Hero user={user} />
       <LogoTicker />
       <Introduction />
       <Features />

@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/landing/Button";
+import Button, { classes } from "@/components/landing/Button";
 import design1Image from "@/assets/images/design-example-1.svg";
 import design2Image from "@/assets/images/design-example-2.svg";
 import Image from "next/image";
@@ -8,8 +8,11 @@ import Pointer from "@/components/landing/Pointer";
 import { motion, useAnimate } from "framer-motion";
 import { useEffect } from "react";
 import cursorYouImage from "@/assets/images/cursor-you.svg";
+import Link from "next/link";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs";
 
-export default function Hero() {
+export default function Hero({ user }: { user: KindeUser }) {
   const [leftDesignScope, leftDesignAnimate] = useAnimate();
   const [leftPointerScope, leftPointerAnimate] = useAnimate();
   const [rightDesignScope, rightDesignAnimate] = useAnimate();
@@ -167,14 +170,27 @@ export default function Hero() {
           videos into sleek, professional presentations with one click!
         </p>
         <div className="flex items-center justify-center border border-white/15 p-2 rounded-full mt-8 max-w-lg mx-auto">
-          <Button
-            type="submit"
-            variant="primary"
-            size="sm"
-            className="whitespace-nowrap before:ease relative h-12 w-40 overflow-hidden border border-blue-500 bg-blue-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:blue-800 hover:before:-translate-x-40"
-          >
-            Get Started
-          </Button>
+          {user ? (
+            <Link href={"/dashboard"}>
+              <Button
+                variant="primary"
+                size="sm"
+                className="whitespace-nowrap before:ease relative h-12 w-40 overflow-hidden border border-blue-500 bg-blue-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:blue-800 hover:before:-translate-x-40"
+              >
+                Get Started
+              </Button>
+            </Link>
+          ) : (
+            <LoginLink
+              className={classes({
+                variant: "primary",
+                className:
+                  "flex justify-center items-center whitespace-nowrap before:ease relative h-12 w-40 overflow-hidden border border-blue-500 bg-blue-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:blue-800 hover:before:-translate-x-40",
+              })}
+            >
+              Log In
+            </LoginLink>
+          )}
         </div>
       </div>
     </section>

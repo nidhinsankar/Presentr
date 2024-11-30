@@ -1,9 +1,10 @@
 import FeatureCard from "@/components/ui/FeatureCard";
 import Tag from "@/components/ui/Tag";
 import Image from "next/image";
-import Avatar1 from "@/assets/images/avatar-ashwin-santiago.jpg";
-import Avatar2 from "@/assets/images/avatar-lula-meyers.jpg";
-import Avatar3 from "@/assets/images/avatar-florence-shaw.jpg";
+import Avatar1 from "@/assets/images/avatar-ashwin-santiago.svg";
+import Avatar2 from "@/assets/images/avatar-lula-meyers.svg";
+import Avatar3 from "@/assets/images/avatar-florence-shaw.svg";
+// import video from "@/assets/gif-incredible.mp4";
 import { Avatar } from "@/components/ui/avatar";
 import Key from "@/components/ui/Key";
 const features = [
@@ -80,7 +81,7 @@ export default function Features() {
                     playsInline
                     className="absolute bottom-full left-1/2 -translate-x-1/2 rounded-2xl shadow-xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
                   >
-                    <source src="/assets/gif-incredible.mp4" type="video/mp4" />
+                    <source src={"/gif-incredible.mp4"} type="video/mp4" />
                   </video>
                 </span>{" "}
                 your eye
