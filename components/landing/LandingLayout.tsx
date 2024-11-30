@@ -11,7 +11,6 @@ import LogoTicker from "./Ticker";
 export default function LandingLayout({ user }: { user: KindeUser }) {
   return (
     <>
-      <Navbar user={user} />
       <Hero user={user} />
       <LogoTicker />
       <Introduction />

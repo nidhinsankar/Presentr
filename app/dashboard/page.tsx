@@ -34,7 +34,6 @@ const Page = async () => {
 
   return (
     <>
-      <Navbar user={user} />
       <div className="min-h-screen p-8">
         <div className="flex justify-between items-center flex-wrap">
           <SectionTitle
@@ -42,7 +41,7 @@ const Page = async () => {
             paragraph="Here are the presentations you've generated."
           />
           <Link
-            href="/generate"
+            href="/create-slides"
             className={buttonVariants({
               variant: "default",
             })}

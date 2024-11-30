@@ -79,7 +79,7 @@ export default function Navbar({ user }: { user: KindeUser }) {
                   </nav>
                 )}
               </div>
-              <div className="flex justify-end gap-4">
+              <div className="flex justify-end items-center gap-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -208,7 +208,7 @@ export default function Navbar({ user }: { user: KindeUser }) {
           </div>
         </div>
       </section>
-      <div className="pb-[86px] md:pb-[98px] lg:pb-[130px]"></div>
+      <div className="pb-[86px] md:pb-[98px] lg:pb-[110px]"></div>
     </>
   );
 }
