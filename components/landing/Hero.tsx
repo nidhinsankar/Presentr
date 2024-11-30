@@ -188,7 +188,7 @@ export default function Hero({ user }: { user: KindeUser }) {
                   "flex justify-center items-center whitespace-nowrap before:ease relative h-12 w-40 overflow-hidden border border-blue-500 bg-blue-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:blue-800 hover:before:-translate-x-40",
               })}
             >
-              Log In
+              Get Started
             </LoginLink>
           )}
         </div>

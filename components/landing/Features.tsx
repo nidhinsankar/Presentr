@@ -34,21 +34,29 @@ export default function Features() {
             className="md:col-span-2 lg:col-span-1 group"
           >
             <div className="aspect-video flex items-center justify-center">
-              <Avatar className="z-40">
+              <Avatar className="z-40 w-16 h-16 rounded-full">
                 <Image
                   src={Avatar1}
                   alt="Avatar 1"
-                  className="w-28 ounded-full"
+                  className="w-full h-full rounded-full"
                 />
               </Avatar>
-              <Avatar className="-ml-6 border-indigo-500 z-30">
-                <Image src={Avatar2} alt="Avatar 2" className="rounded-full" />
+              <Avatar className="-ml-6 w-16 h-16 border-indigo-500 z-30">
+                <Image
+                  src={Avatar2}
+                  alt="Avatar 2"
+                  className="rounded-full w-full h-full"
+                />
               </Avatar>
-              <Avatar className="-ml-6 border-amber-500 z-20">
-                <Image src={Avatar3} alt="Avatar 3" className="rounded-full" />
+              <Avatar className="-ml-6 w-16 h-16 border-amber-500 z-20">
+                <Image
+                  src={Avatar3}
+                  alt="Avatar 3"
+                  className="rounded-full w-full h-full"
+                />
               </Avatar>
-              <Avatar className="-ml-6 z-10 border-transparent group-hover:border-green-500 transition">
-                <div className="relative size-full bg-neutral-700 rounded-full inline-flex items-center justify-center gap-1">
+              <Avatar className="-ml-6 w-16 h-16 z-10 border-transparent group-hover:border-green-500 transition">
+                <div className="relative size-full w-full h-full bg-neutral-700 rounded-full inline-flex items-center justify-center gap-1">
                   <Image
                     src={""}
                     alt="Avatar 4"
@@ -70,7 +78,7 @@ export default function Features() {
             className="md:col-span-2 lg:col-span-1 group"
           >
             <div className="relative flex items-center justify-center aspect-video">
-              <p className="text-4xl text-center font-extrabold text-neutral-800 group-hover:text-white/10 transition duration-500">
+              <p className="text-4xl flex flex-col text-center font-extrabold text-neutral-800 group-hover:text-white/10 transition duration-500">
                 Before you{" "}
                 <span className="relative bg-gradient-to-tr from-blue-400 to-blue-400 bg-clip-text text-transparent">
                   <span>blink</span>

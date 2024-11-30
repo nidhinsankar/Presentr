@@ -17,7 +17,7 @@ export default function LandingLayout({ user }: { user: KindeUser }) {
       <Introduction />
       <Features />
       <Faqs />
-      <CallToAction />
+      <CallToAction user={user} />
       <Footer />
     </>
   );
