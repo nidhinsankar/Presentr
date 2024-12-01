@@ -46,7 +46,7 @@ export default function Navbar({ user }: { user: KindeUser }) {
         <div className="container max-w-5xl">
           <div
             ref={navbarRef}
-            className="border border-white/15 rounded-[27px] md:rounded-full bg-black/60 text-white backdrop-blur"
+            className="border border-white/15 rounded-[27px] md:rounded-full bg-black/80 text-white backdrop-blur"
           >
             <div className="grid grid-cols-2 lg:grid-cols-3 p-2 px-4 md:pr-2 items-center">
               <div>
@@ -131,7 +131,7 @@ export default function Navbar({ user }: { user: KindeUser }) {
                     <LoginLink
                       className={classes({
                         variant: "secondary",
-                        className: "flex justify-center items-center",
+                        className: "hidden md:flex justify-center items-center",
                       })}
                     >
                       Log In
@@ -140,7 +140,7 @@ export default function Navbar({ user }: { user: KindeUser }) {
                       className={classes({
                         variant: "primary",
                         className:
-                          "flex hover:bg-blue-700 justify-center items-center",
+                          "hidden md:flex hover:bg-blue-700 justify-center items-center",
                       })}
                     >
                       Sign Up

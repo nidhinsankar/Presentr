@@ -41,7 +41,7 @@ const Page = async () => {
             paragraph="Here are the presentations you've generated."
           />
           <Link
-            href="/create-slides"
+            href="/generate-slides"
             className={buttonVariants({
               variant: "default",
             })}
